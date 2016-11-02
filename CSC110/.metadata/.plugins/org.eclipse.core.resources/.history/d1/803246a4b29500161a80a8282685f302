@@ -1,0 +1,8 @@
+
+public class Fraculator {
+
+	
+	private class Fraction{
+		double top, bottom;
+	}
+}

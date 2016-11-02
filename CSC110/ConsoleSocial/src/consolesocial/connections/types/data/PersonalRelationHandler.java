@@ -1,0 +1,21 @@
+package consolesocial.connections.types.data;
+
+import java.io.IOException;
+import patpackages.input.*;
+
+public class PersonalRelationHandler {
+	public static final PersonalRelation GetRelationFromInt(int i){
+		return PersonalRelation.values()[i];
+	}
+	public static final int GetRangeOfPersonalRelation(){
+		return PersonalRelation.values().length;
+	}
+	public static PersonalRelation GetRelationFromUser() throws IOException{
+		System.out.println("What is your relation to this person?");
+		String[] options = new String[GetRangeOfPersonalRelation()];
+		for(int i = 0; i < options.length; i++){
+			options[i] = "" + i +"- " + GetRelationFromInt(i);
+		}
+		return GetRelationFromInt(ConsoleUI.promptForMenuSelection(options, false));
+	}
+}

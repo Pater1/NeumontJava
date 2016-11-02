@@ -1,0 +1,79 @@
+package consolesocial.connections.established.friends;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import consolesocial.connections.types.Friend;
+import consolesocial.connections.types.data.PersonalRelationHandler;
+import patpackages.input.ConsoleUI;
+
+public class FriendsList {
+	private ArrayList<Friend> friends = new ArrayList<Friend>();
+	private Friend activeFriend = null;
+	
+	private void AddFriend() throws IOException{
+		friends.add(MakeNewFriend());
+	}
+	private Friend MakeNewFriend() throws IOException{
+		String f = "", l = "", m = "";
+		f = ConsoleUI.promptForInput("What is your friend's first name?", false);
+		
+		if(ConsoleUI.promptForBool("Do you know their last name?", "y", "n")){
+			l = ConsoleUI.promptForInput("What is their last name?", false);
+		}else if(ConsoleUI.promptForBool("Do you know their last initial?", "y", "n")){
+			l = "" + ConsoleUI.promptForChar("What is their last initial", 'A', 'Z');
+		}else{
+			return Friend.MakeNewFriend(f,PersonalRelationHandler.GetRelationFromUser());
+		}
+		
+		if(ConsoleUI.promptForBool("Do you know their middle name?", "y", "n")){
+			l = ConsoleUI.promptForInput("What is their middle name?", false);
+		}else if(ConsoleUI.promptForBool("Do you know their middle initial?", "y", "n")){
+			l = "" + ConsoleUI.promptForChar("What is their middle initial", 'A', 'Z');
+		}else{
+			return Friend.MakeNewFriend(f,l,PersonalRelationHandler.GetRelationFromUser());
+		}
+		
+		return Friend.MakeNewFriend(f,l,m,PersonalRelationHandler.GetRelationFromUser());
+	}
+
+ 	private Friend getFriendByName(String nameFirst, String nameLast, String nameMiddle){
+		for(int i = 0; i < friends.size(); i++){
+			if(friends.get(i).nameFirst.equals(nameFirst) && friends.get(i).nameLast.equals(nameLast) && friends.get(i).nameMiddle.equals(nameMiddle)){
+				return friends.get(i);
+			}
+		}
+		return null;
+	}
+	private Friend getFriendByName(String nameFirst, String nameLast, char initialMiddle){
+		for(int i = 0; i < friends.size(); i++){
+			if(friends.get(i).nameFirst.equals(nameFirst) && friends.get(i).nameLast.equals(nameLast) && friends.get(i).nameMiddle.charAt(0) == initialMiddle){
+				return friends.get(i);
+			}
+		}
+		return null;
+	}
+	private Friend getFriendByName(String nameFirst, String nameLast){
+		for(int i = 0; i < friends.size(); i++){
+			if(friends.get(i).nameFirst.equals(nameFirst) && friends.get(i).nameLast.equals(nameLast)){
+				return friends.get(i);
+			}
+		}
+		return null;
+	}
+	private Friend getFriendByName(String nameFirst, char initialLast){
+		for(int i = 0; i < friends.size(); i++){
+			if(friends.get(i).nameFirst.equals(nameFirst) && friends.get(i).nameLast.charAt(0) == initialLast){
+				return friends.get(i);
+			}
+		}
+		return null;
+	}
+	private Friend getFriendByName(String nameFirst){
+		for(int i = 0; i < friends.size(); i++){
+			if(friends.get(i).nameFirst.equals(nameFirst)){
+				return friends.get(i);
+			}
+		}
+		return null;
+	}
+}

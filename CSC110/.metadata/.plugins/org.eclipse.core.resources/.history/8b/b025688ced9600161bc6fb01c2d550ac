@@ -1,0 +1,37 @@
+package edu.neumont.csc110.a.drills;
+
+import java.io.IOException;
+import java.util.Calendar;
+import patpackages.input.*;
+
+public class JavaDrills {
+	public static void main(String[] args) throws IOException{
+		Drill4FloatingAway();
+	}
+	
+	private static void Drill1CalcBirthYear() throws IOException{
+		int y = Calendar.getInstance().get(Calendar.YEAR) - ConsoleUI.promptForInt("How old are you?", 0, 120) + (ConsoleUI.promptForBool("Have you had your birthday yet this year?", "yes", "no") ? 1 : 0) -1;
+		System.out.println("You were born in " + y + "!");
+	}
+	
+	private static void Drill2MeaninglessOps() throws IOException{
+		int ret = ((ConsoleUI.promptForInt("input a number", Integer.MIN_VALUE, Integer.MAX_VALUE) + 5) * 3) % 7;
+		System.out.println("" + ret);
+	}
+	
+	private static void Drill3MeaninglessOps2() throws IOException{
+		int a = ConsoleUI.promptForInt("input a number", Integer.MIN_VALUE, Integer.MAX_VALUE);
+		int ret = (a+7)*(a-9);
+		System.out.println("" + ret);
+	}
+	
+	private static void Drill4FloatingAway() throws IOException{
+		int a = ConsoleUI.promptForInt("input a number", Integer.MIN_VALUE, Integer.MAX_VALUE), b = ConsoleUI.promptForInt("input another number", Integer.MIN_VALUE, Integer.MAX_VALUE);
+		float ret = (float) (Math.pow(((float)a/(float)b),3)+Math.PI);
+		System.out.println("" + ret);
+	}
+	
+	private static void Drill5char2int() throws IOException{
+		System.out.println((int)ConsoleUI.promptForChar("input a letter", (char)0, (char)255));
+	}
+}

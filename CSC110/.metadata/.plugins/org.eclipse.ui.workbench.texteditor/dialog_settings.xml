@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
+		<item value="false" key="isRegEx"/>
+		<item value="Random" key="selection"/>
+		<item value="true" key="casesensitive"/>
+		<item value="false" key="incremental"/>
+		<item value="true" key="wrap"/>
+		<item value="true" key="wholeword"/>
+		<list key="findhistory">
+			<item value="Random"/>
+			<item value="System.out.println"/>
+			<item value="i"/>
+			<item value="a"/>
+			<item value="r"/>
+			<item value="b"/>
+			<item value="g"/>
+			<item value="PrintStatus"/>
+		</list>
+		<list key="replacehistory">
+			<item value="TermPrint"/>
+			<item value="intensity"/>
+			<item value="intencity"/>
+			<item value="alpha"/>
+			<item value="red"/>
+			<item value="blue"/>
+			<item value="green"/>
+			<item value="Double.parseDouble"/>
+		</list>
+	</section>
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
+		<item value="277" key="DIALOG_WIDTH"/>
+		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-24|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
+		<item value="370" key="DIALOG_HEIGHT"/>
+		<item value="7" key="DIALOG_X_ORIGIN"/>
+		<item value="275" key="DIALOG_Y_ORIGIN"/>
+	</section>
+</section>

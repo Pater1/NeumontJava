@@ -1,0 +1,109 @@
+import java.io.IOException;
+import java.util.ArrayList;
+
+import patpackages.input.*;
+
+public class Fraculator {
+
+	public static void main(String[] args) throws IOException {
+		System.out.println( Fraction.ToSimplestForm( Fraction.ToFraction(ConsoleUI.promptForDouble("decimal to convert to fraction", Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY))).ToString() );
+	}
+
+	public static ArrayList<Double> PrimesInRange(int lowRange, int highRange){
+		return PrimesInRange((double)lowRange, (double)highRange);
+	}
+	public static ArrayList<Double> PrimesInRange(Double lowRange, Double highRange) {
+		ArrayList<Double> primes = new ArrayList<Double>();
+		for (int i = (int)((double)lowRange); i <= highRange; i++) {
+			int counter = 0;
+			for (int num = i; num >= 1; num--) {
+				if (i % num == 0) {
+					counter = counter + 1;
+				}
+			}
+			if (counter == 2) {
+				// Appended the Prime number to the String
+				primes.add((double)i);
+			}
+		}
+		return primes;
+	}
+
+	private static class Fraction {
+		public double leadInt, top, bottom;
+
+		public double ToDecimal(){
+			return leadInt + (top/bottom);
+		}
+		public String ToString() {
+			return "" + (int)leadInt + " " + (int)top + "/" + (int)bottom;
+		}
+
+		public static Fraction ToFraction(Double decimal){
+			String[] splitter = decimal.toString().split("\\.");
+			double lead = Double.parseDouble(splitter[0]);   // Before Decimal Count
+			double base = Math.pow(10,splitter[1].length());
+			double top = Double.parseDouble(splitter[1]);
+			return _newFract(lead, top, base);
+		}
+		public static Fraction ToSimplestForm(Fraction input){
+			return ToSimplestForm(input, 1);
+		}
+		private static Fraction ToSimplestForm(Fraction input, double prime){
+			input.top /= prime;
+			input.bottom /= prime;
+			
+			double highRange = 0;
+			if(input.top < input.bottom){
+				highRange = input.bottom + 1;
+			}else{
+				highRange = input.top + 1;
+			}
+			
+			double lowRange = 0;
+			if(input.top < 0 || input.bottom < 0){
+				if(input.top < input.bottom){
+					highRange = input.top - 1;
+				}else{
+					highRange = input.bottom - 1;
+				}
+			}
+			
+			
+			ArrayList<Double> primes = Fraculator.PrimesInRange(1,100);
+			for(int i = primes.size()-1; i >= 0; i--){
+				if(primes.get(i) != 1 && primes.get(i) != -1 &&
+						input.top % primes.get(i) == 0 && 
+						input.bottom % primes.get(i) == 0){
+					return ToSimplestForm(input, primes.get(i));
+				}
+			}
+			return input;
+		}
+		private static Fraction MakeProper(Fraction fract){
+			if(fract.top > fract.bottom){
+				double newTop = fract.top % fract.bottom;
+				fract.leadInt += (fract.top - newTop)/fract.bottom;
+				fract.top = newTop;
+			}
+			return fract;
+		}
+		
+		public static Fraction _userFract() throws IOException {
+			return _newFract(
+					(double)ConsoleUI.promptForInt("Please input the leading integer for the fraction", Integer.MIN_VALUE,
+							Integer.MAX_VALUE),
+					ConsoleUI.promptForDouble("Please input the top value of the fraction", Double.NEGATIVE_INFINITY,
+							Double.POSITIVE_INFINITY),
+					ConsoleUI.promptForDouble("Please input the bottom value of the fraction", Double.NEGATIVE_INFINITY,
+							Double.POSITIVE_INFINITY));
+		}
+		public static Fraction _newFract(double l, double t, double b) {
+			Fraction fract = new Fraction();
+			fract.leadInt = l;
+			fract.top = t;
+			fract.bottom = b;
+			return Fraction.MakeProper(fract);
+		}
+	}
+}

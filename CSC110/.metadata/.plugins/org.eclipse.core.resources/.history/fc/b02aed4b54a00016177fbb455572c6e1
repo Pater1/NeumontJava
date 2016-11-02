@@ -1,0 +1,20 @@
+package consolesocial.connections.types;
+
+import consolesocial.connections.types.data.PersonalRelation;
+
+public class Friend {
+	private String nameFirst, nameLast, nameMiddle;
+	private PersonalRelation relation;
+	
+	private void setName(String first, String last, String middle){
+		nameFirst = first;
+		nameLast = last;
+		nameMiddle = middle;
+	}
+	
+	public static Friend MakeNewFriend(String nFirst, String nLast, String nMiddle, PersonalRelation relation){
+		Friend newFriend = new Friend();
+		newFriend.setName(nFirst, nLast, nMiddle);
+		return newFriend;
+	}
+}

@@ -1,0 +1,8 @@
+package consolesocial.connections.types;
+
+import consolesocial.connections.types.data.PersonalRelation;
+
+public class Friend {
+	public String nameFirst, nameLast, nameMiddle;
+	public PersonalRelation relation;
+}

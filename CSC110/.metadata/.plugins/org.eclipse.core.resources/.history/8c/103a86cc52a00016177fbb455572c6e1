@@ -1,0 +1,14 @@
+package consolesocial.connections.established.friends;
+
+import java.util.ArrayList;
+import consolesocial.connections.types.Friend;
+
+public class FriendsList {
+	private ArrayList<Friend> friends = new ArrayList<Friend>();
+	
+	private Friend getFriendByName(String nameFirst, String nameLast, String nameMiddle){
+		for(int i = 0; i < friends.size(); i++){
+			
+		}
+	}
+}

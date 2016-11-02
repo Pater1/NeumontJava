@@ -1,0 +1,5 @@
+package consolesocial.connections.types;
+
+public class Friend {
+
+}

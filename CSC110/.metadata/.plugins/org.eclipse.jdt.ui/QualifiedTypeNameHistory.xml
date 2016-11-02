@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="java.io.BufferedReader"/>
+<fullyQualifiedTypeName name="java.io.InputStreamReader"/>
+<fullyQualifiedTypeName name="java.text.DateFormat"/>
+<fullyQualifiedTypeName name="java.util.Currency"/>
+<fullyQualifiedTypeName name="java.text.NumberFormat"/>
+<fullyQualifiedTypeName name="java.util.HashMap"/>
+<fullyQualifiedTypeName name="java.util.Map"/>
+<fullyQualifiedTypeName name="java.lang.System"/>
+<fullyQualifiedTypeName name="java.text.DecimalFormat"/>
+<fullyQualifiedTypeName name="patpackages.gui.base.style.color.Color"/>
+<fullyQualifiedTypeName name="patpackages.gui.base.style.textures.PatPackTexture2D"/>
+<fullyQualifiedTypeName name="java.util.Random"/>
+<fullyQualifiedTypeName name="consolesocial.connections.types.data.PersonalRelation"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="consolesocial.connections.types.Friend"/>
+<fullyQualifiedTypeName name="consolesocial.connections.types.data.PersonalRelationHandler"/>
+</qualifiedTypeNameHistroy>

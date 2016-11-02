@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy package &apos;patpackages.input&apos; to &apos;Hangman/src&apos;&#x0D;&#x0A;- Original project: &apos;GradeRecorder&apos;&#x0D;&#x0A;- Destination element: &apos;Hangman/src&apos;&#x0D;&#x0A;- Original element: &apos;GradeRecorder/src/patpackages.input&apos;" description="Copy package" destination="=Hangman/src" element1="/src&lt;patpackages.input" flags="589830" fragments="1" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyPackages" stamp="1476379597381" version="1.0"/>
+</session>

@@ -1,0 +1,8 @@
+package consolesocial.connections.established.friends;
+
+import java.util.ArrayList;
+import consolesocial.connections.types.Friend;
+
+public class FriendsList {
+	private ArrayList<Friend> friends = new ArrayList<Friend>();
+}

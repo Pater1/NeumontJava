@@ -1,0 +1,61 @@
+import java.io.IOException;
+import java.util.ArrayList;
+
+import patpackages.input;
+import patpackages.input.ConsoleUI;
+
+public class Fraculator {
+
+	public static void main(String[] args) {
+
+	}
+
+	public static ArrayList<Double> PrimesInRange(int lowRange, int highRange){
+		return PrimesInRange((double)lowRange, (double)highRange);
+	}
+	public static ArrayList<Double> PrimesInRange(Double lowRange, Double highRange) {
+		ArrayList<Double> primes = new ArrayList<Double>();
+		for (int i = (int)((double)lowRange); i <= highRange; i++) {
+			int counter = 0;
+			for (int num = i; num >= 1; num--) {
+				if (i % num == 0) {
+					counter = counter + 1;
+				}
+			}
+			if (counter == 2) {
+				// Appended the Prime number to the String
+				primes.add((double)i);
+			}
+		}
+		return primes;
+	}
+
+	private static class Fraction {
+		public double top, bottom;
+
+		public String ToString() {
+			return "" + top + " / " + bottom;
+		}
+
+		public static Fraction reduceToLowestDenominator(Fraction input){
+			int i = 0;
+			for(i; i < Fraculator.PrimesInRange(1,100); i++){
+				
+			}
+		}
+		public static Fraction userFract() throws IOException {
+			return newFract(
+					ConsoleUI.promptForDouble("Please input the top value of the fraction", Double.NEGATIVE_INFINITY,
+							Double.POSITIVE_INFINITY),
+					ConsoleUI.promptForDouble("Please input the bottom value of the fraction", Double.NEGATIVE_INFINITY,
+							Double.POSITIVE_INFINITY));
+		}
+
+		public static Fraction newFract(double t, double b) {
+			Fraction fract = new Fraction();
+			fract.top = t;
+			fract.bottom = b;
+			return fract;
+		}
+	}
+}

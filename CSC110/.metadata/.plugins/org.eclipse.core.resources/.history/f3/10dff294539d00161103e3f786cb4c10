@@ -1,0 +1,92 @@
+package edu.neumont.csc110.a.drills;
+
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import patpackages.input.*;
+
+public class JavaDrills2 {
+	private static void Drill1BranchingElif() throws IOException{
+		String str = ConsoleUI.promptForInput("What's your name?", false);
+		if(str.equals("Fred")){
+			String ing = ConsoleUI.promptForInput("What's your last name?", false);
+			System.out.println("Hi there Fred " + ing);
+		}else{
+			String ing = ConsoleUI.promptForInput("What's your favorite color?", false);
+			System.out.println("Hi ther Mr. " + ing + " not Fred");
+		}
+	}
+	
+	private static void Drill2IsFred() throws IOException{
+		String str = ConsoleUI.promptForInput("What's your name?", false);
+		if(str.equals("Fred")){
+			String ing = ConsoleUI.promptForInput("What's your last name?", false);
+			System.out.println("Hi there Fred " + ing);
+		}else{
+			System.out.println("Hi ther Mr. not Fred");
+		}
+	}
+	
+	private static void Drill3IsFredColor() throws IOException{
+		String str = ConsoleUI.promptForInput("What's your name?", false);
+		if(str.equals("Fred")){
+			System.out.println("Hi there Fred!");
+		}else{
+			String ing = ConsoleUI.promptForInput("What's your favorite color?", false);
+			System.out.println("Hi ther Mr. " + ing + " not Fred");
+		}
+	}
+	
+	private static void Drill4Flow(){
+		System.out.println(   "Drill 1: \n"
+				+ "	Get user name -> Is name 'Fred'?  -Yes-> Get user last name -> print 'hi, [first name] [last name]\n"
+				+ "									  -No--> Get user favorite color -> print 'hi [color] [name]'");
+		System.out.println(   "Drill 2: \n"
+				+ "	Get user name -> Is name 'Fred'?  -Yes-> Get user last name -> print 'hi, [first name] [last name]\n"
+				+ "									  -No--> print 'hi [name]'");
+		System.out.println(   "Drill 3: \n"
+				+ "	Get user name -> Is name 'Fred'?  -Yes-> print 'hi, [first name]\n"
+				+ "									  -No--> Get user favorite color -> print 'hi [color] [name]'");
+	}
+	
+
+	private static void Drill5FredPuns() throws IOException{
+		String str = ConsoleUI.promptForInput("What's your name?", false);
+		if(str.equals("Fred")){
+			String ing = ConsoleUI.promptForInput("What's your last name?", false);
+			if(ing.equals("Flintstone")){
+				System.out.println("YABA-DABA-DOO!");
+			}else{
+				System.out.println("Hi there Fred not-Flintstone");
+			}
+		}else{
+			String ing = ConsoleUI.promptForInput("What's your favorite color?", false);
+			if(ing.equals("red")){
+				System.out.println("I'd rather be red than Fred");
+			}else{
+				System.out.println("Hi ther Mr. " + ing + " not Fred");
+			}
+		}
+	}
+	
+	private static void Drill6Bedrock() throws IOException{
+		String str = ConsoleUI.promptForInput("What's your name?", false);
+		if(str.equals("Fred")){
+			System.out.println("Yapadapadoo");
+		}else if(str.equals("Barney")){
+			System.out.println("Rubble");
+		}else if(str.equals("Dino")){
+			System.out.println("go chase a car");
+		}else{
+			System.out.println("You’re not a flinstone...");
+		}
+	}
+	
+	private static void Drill7EnumSwitch(){
+		
+		Date now = new Date();
+		SimpleDateFormat simpleDateformat = new SimpleDateFormat("EEEE"); // the day of the week spelled out completely
+        String day = simpleDateformat.format(now);
+	}
+}

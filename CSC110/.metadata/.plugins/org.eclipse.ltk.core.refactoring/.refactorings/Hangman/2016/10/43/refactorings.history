@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy package &apos;patpackages.input&apos; to &apos;VigenereShiftCypher/src/(default package)&apos;&#x0D;&#x0A;- Original project: &apos;Hangman&apos;&#x0D;&#x0A;- Destination element: &apos;VigenereShiftCypher/src/(default package)&apos;&#x0D;&#x0A;- Original element: &apos;Hangman/src/patpackages.input&apos;" description="Copy package" destination="=VigenereShiftCypher/src&lt;" element1="/src&lt;patpackages.input" flags="589830" fragments="1" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyPackages" stamp="1476846352047" version="1.0"/>
+</session>

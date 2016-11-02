@@ -1,0 +1,55 @@
+package consolesocial.connections.established.friends;
+
+import java.util.ArrayList;
+import consolesocial.connections.types.Friend;
+
+public class FriendsList {
+	private ArrayList<Friend> friends = new ArrayList<Friend>();
+	private Friend activeFriend = null;
+	
+	public void MakeNewFriend(){
+		String f = "", l = "", m = "";
+		
+	}
+
+ 	private Friend getFriendByName(String nameFirst, String nameLast, String nameMiddle){
+		for(int i = 0; i < friends.size(); i++){
+			if(friends.get(i).nameFirst.equals(nameFirst) && friends.get(i).nameLast.equals(nameLast) && friends.get(i).nameMiddle.equals(nameMiddle)){
+				return friends.get(i);
+			}
+		}
+		return null;
+	}
+	private Friend getFriendByName(String nameFirst, String nameLast, char initialMiddle){
+		for(int i = 0; i < friends.size(); i++){
+			if(friends.get(i).nameFirst.equals(nameFirst) && friends.get(i).nameLast.equals(nameLast) && friends.get(i).nameMiddle.charAt(0) == initialMiddle){
+				return friends.get(i);
+			}
+		}
+		return null;
+	}
+	private Friend getFriendByName(String nameFirst, String nameLast){
+		for(int i = 0; i < friends.size(); i++){
+			if(friends.get(i).nameFirst.equals(nameFirst) && friends.get(i).nameLast.equals(nameLast)){
+				return friends.get(i);
+			}
+		}
+		return null;
+	}
+	private Friend getFriendByName(String nameFirst, char initialLast){
+		for(int i = 0; i < friends.size(); i++){
+			if(friends.get(i).nameFirst.equals(nameFirst) && friends.get(i).nameLast.charAt(0) == initialLast){
+				return friends.get(i);
+			}
+		}
+		return null;
+	}
+	private Friend getFriendByName(String nameFirst){
+		for(int i = 0; i < friends.size(); i++){
+			if(friends.get(i).nameFirst.equals(nameFirst)){
+				return friends.get(i);
+			}
+		}
+		return null;
+	}
+}

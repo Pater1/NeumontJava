@@ -1,0 +1,10 @@
+package consolesocial.connections.types.data;
+
+public class PersonalRelationHandler {
+	public static PersonalRelation GetRelationFromInt(int i){
+		return PersonalRelation.values()[i];
+	}
+	public static final int GetRangeOfPersonalRelation(){
+		return PersonalRelation.values().length;
+	}
+}
