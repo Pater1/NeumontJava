@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy element &apos;ConsoleUI.java&apos; to &apos;Tic Tac Toe/src&apos;&#x0D;&#x0A;- Original project: &apos;PatPackagesJava&apos;&#x0D;&#x0A;- Destination element: &apos;Tic Tac Toe/src&apos;&#x0D;&#x0A;- Original element: &apos;patpackages.input.ConsoleUI.java&apos;" description="Copy compilation unit" destination="=Tic Tac Toe/src" element1="/src&lt;patpackages.input{ConsoleUI.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1478548294760" units="1" version="1.0"/>
+</session>

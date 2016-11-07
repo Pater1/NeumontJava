@@ -1,0 +1,9 @@
+package csc110.tictactoe.player.ai.neural;
+
+import java.util.ArrayList;
+
+public class Overmind {
+	ArrayList<ArrayList<ArrayList<Integer>>> brains = new ArrayList<ArrayList<ArrayList<Integer>>>();
+	
+	
+}

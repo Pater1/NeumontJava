@@ -1,0 +1,19 @@
+package csc110.tictactoe.player.ai.neural;
+
+import java.util.ArrayList;
+
+public class Overmind {
+			//fitness sorted	//list of brains	//serialized brains
+	private ArrayList<			ArrayList<			ArrayList<Integer>>> brains = new ArrayList<ArrayList<ArrayList<Integer>>>();
+	
+	public enum Difficulty{
+		easy,
+		medium,
+		hard
+	}
+	public Difficulty difficulty = Difficulty.easy;
+	
+	public Brain BreedBrains(){
+		ArrayList<ArrayList<Integer>>
+	}
+}

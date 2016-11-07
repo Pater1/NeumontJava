@@ -1,0 +1,172 @@
+package itsaMAZEing;
+
+import java.util.ArrayList;
+import java.util.Random;
+
+public class Maze {
+	public static MazeSpace[][] maze;
+	
+	public static void main(String[] args){
+		maze = generateMaze(Vector2.newVector(11,5), Vector2.newVector(1, 1), Vector2.newVector(2, 2));
+		drawMaze(maze);
+	}
+	
+	private static MazeSpace[][] generateMaze(Vector2 size, Vector2 start, Vector2 jump){
+		return generateMaze(blankMaze(size),start,jump, 0);
+	}
+	private static MazeSpace[][] generateMaze(MazeSpace[][] m, Vector2 place, Vector2 jump, int depth){
+		Random rand = new Random();
+		ArrayList<LegalMoves> mvs = new ArrayList<LegalMoves>();
+		ArrayList<Vector2> log = new ArrayList<Vector2>();
+		log.add(place);
+		
+		do{
+			drawMaze(m,place);
+			place = log.get(log.size()-1);
+			mvs = legalMoves(m,place,jump);
+			
+			//if(mvs.size() <= 0) break;
+			while(mvs.size() <= 0){
+				System.out.println("--"+log.size());
+				
+				/*ArrayList<Vector2> nlog = new ArrayList<Vector2>();
+				for(int i = 0; i < log.size()-1; i++){
+					nlog.add(log.get(i));
+				}
+				log=nlog;*/
+				
+				log.remove(log.size()-1);
+				if(log.size() <= 0){
+					return m;
+				}else{
+					place = log.get(log.size()-1);
+				}
+				mvs = legalMoves(m,place,jump);
+			}
+			
+			Vector2 moveTo = place;
+			LegalMoves mv = mvs.get(rand.nextInt(mvs.size()));
+			
+			switch(mv){
+				case up:
+					System.out.println("going up");
+					m = flipSpaceBits(m,place,Vector2.newVector(0, jump.y));
+					log.add(Vector2.newVector(place.x, place.y+jump.y));
+					//m = generateMaze(m,Vector2.newVector(place.x, place.y+jump.y),jump,depth++);
+					break;
+				case down:
+					System.out.println("going down");
+					m = flipSpaceBits(m,place,Vector2.newVector(0, -jump.y));
+					log.add(Vector2.newVector(place.x, place.y-jump.y));
+					//m = generateMaze(m,Vector2.newVector(place.x, place.y-jump.y),jump,depth++);
+					break;
+				case right:
+					System.out.println("going right");
+					m = flipSpaceBits(m,place,Vector2.newVector(jump.x, 0));
+					log.add(Vector2.newVector(place.x+jump.x, place.y));
+					//m = generateMaze(m,Vector2.newVector(place.x+jump.y, place.y),jump,depth++);
+					break;
+				case left:
+					System.out.println("going left");
+					m = flipSpaceBits(m,place,Vector2.newVector(-jump.x, 0));
+					log.add(Vector2.newVector(place.x-jump.x, place.y));
+					//m = generateMaze(m,Vector2.newVector(place.x-jump.y, place.y),jump,depth++);
+					break;
+			}
+		}while(true);
+	}
+	private static MazeSpace[][] flipSpaceBits(MazeSpace[][] m, Vector2 placeOld, Vector2 moveDir){
+		if(moveDir.x != 0){
+			for(int j = placeOld.x; j != placeOld.x + moveDir.x; j = ((0 > moveDir.x) ? j-1 : j+1)){
+				m[placeOld.y][j] = MazeSpace.space;
+			}
+		}else{
+			for(int i = placeOld.y; i != placeOld.y + moveDir.y; i = ((0 > moveDir.y) ? i-1 : i+1)){
+				m[i][placeOld.x] = MazeSpace.space;
+			}
+		}
+		return m;
+	}
+	private static MazeSpace[][] blankMaze(Vector2 size){
+		MazeSpace[][] mz = new MazeSpace[size.y][size.x];
+		for(int i = 0; i < size.y; i++){
+			for(int j = 0; j < size.x; j++){
+				mz[i][j] = MazeSpace.wall;
+			}
+		}
+		return mz;
+	}
+	
+	private static ArrayList<LegalMoves> legalMoves(MazeSpace[][] m, Vector2 place, Vector2 jump){
+		ArrayList<LegalMoves> mvs = new ArrayList<LegalMoves>();
+
+		System.out.println(place.ToString());
+		
+		//check up
+		int u = place.y + jump.y;
+		if(u < m.length && m[u][place.x] == MazeSpace.wall){
+			mvs.add(LegalMoves.up);
+		}
+		//check down
+		int d = place.y - jump.y;
+		if(d >= 0 && m[d][place.x] == MazeSpace.wall){
+			mvs.add(LegalMoves.down);
+		}
+		//check left
+		int l = place.x - jump.x;
+		if(l >= 0 && m[place.y][l] == MazeSpace.wall){
+			mvs.add(LegalMoves.left);
+		}
+		//check right
+		int r = place.x + jump.x;
+		if(r < m[0].length && m[place.y][r] == MazeSpace.wall){
+			mvs.add(LegalMoves.right);
+		}
+		
+		return mvs;
+	}
+	
+	private static void drawMaze(MazeSpace[][] m){
+		for(int i = 0; i < m.length; i++){
+			for(int j = 0; j < m[i].length; j++){
+				if(m[i][j] == MazeSpace.space){
+					System.out.print("  ");
+				}else{
+					System.out.print("++");
+				}
+			}
+			System.out.println("");
+		}
+	}
+	private static void drawMaze(MazeSpace[][] m, Vector2 vec){
+		for(int i = 0; i < m.length; i++){
+			for(int j = 0; j < m[i].length; j++){
+				if(i == vec.y && j == vec.x){
+					System.out.print("&&");
+				}else{
+					if(m[i][j] == MazeSpace.space){
+						System.out.print("  ");
+					}else{
+						System.out.print("++");
+					}
+				}
+			}
+			System.out.println("");
+		}
+	}
+	
+	private static class Vector2{
+		public int x,y;
+		
+		public String ToString(){
+			return "<" + x + "," + y + ">";
+		}
+		
+		public static Vector2 newVector(int xValue, int yValue){
+			Vector2 vec = new Vector2();
+			vec.x = xValue;
+			vec.y = yValue;
+			return vec;
+		}
+	}
+}

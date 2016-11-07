@@ -1,0 +1,24 @@
+package csc110.tictactoe.player.ai.neural;
+
+import csc110.wrappers.Vector2Int;
+
+public class ComputeNeuron implements Neuron {
+	private Vector2Int inA, inB;
+	private Gate logic;
+	
+	public int GetResult(Brain fromBrain){
+		int result = 0;
+		switch(logic){
+			case add:
+				result = fromBrain;
+			case subtract:
+				result = inputA - inputB;
+			case multiply:
+				result = inputA * inputB;
+		}
+		if(result != 0){
+			result /= Math.abs(result);
+		}
+		return result;
+	}
+}

@@ -1,0 +1,5 @@
+package csc110.tictactoe.player.ai;
+
+public class Neuron {
+
+}

@@ -1,0 +1,8 @@
+package csc110.tictactoe.player.ai;
+
+import csc110.tictactoe.player.ai.neural.*;
+
+public class AIPlayer {
+	private Brain myBrain;
+	private Overmind ovm;
+}

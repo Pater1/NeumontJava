@@ -1,0 +1,9 @@
+package csc110.wrappers;
+
+public class Vector2Int {
+	public int x, y;
+	
+	public static Vector2 (int a, int b){
+		return new Vector2(b, b);
+	}
+}

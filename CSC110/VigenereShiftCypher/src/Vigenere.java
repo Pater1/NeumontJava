@@ -3,15 +3,24 @@ import patpackages.input.*;
 
 public class Vigenere {
 	public static void main(String[] args) throws IOException {
-		System.out.println(EncodeCypherText(
-				ConsoleUI.promptForInput("please input your key", false),
-				ConsoleUI.promptForInput("please input your message", false)));	
+		String key = ConsoleUI.promptForInput("please input your key", false);
+		System.out.println(DecodeCypherText(key, EncodeCypherText(
+				key,
+				ConsoleUI.promptForInput("please input your message", false))));	
 	}
 	
 	public static String EncodeCypherText(String key, String plainText){
 		String str = "";
 		for(int i = 0; i < plainText.replaceAll("\\s","").length(); i++){
 			str += (char)(((Character.toLowerCase(key.replaceAll("\\s","").charAt(i%key.replaceAll("\\s","").length())) + Character.toLowerCase(plainText.replaceAll("\\s","").charAt(i)) - 2*'a') % 26) + 'a');
+		}
+		return str;
+	}
+	
+	public static String DecodeCypherText(String key, String cypherText){
+		String str = "";
+		for(int i = 0; i < cypherText.length(); i++){
+			str += (char)(((Character.toLowerCase(cypherText.charAt(i)) - Character.toLowerCase(key.replaceAll("\\s","").charAt(i%key.replaceAll("\\s","").length())) - 2*'a') % 26) + 'a');
 		}
 		return str;
 	}

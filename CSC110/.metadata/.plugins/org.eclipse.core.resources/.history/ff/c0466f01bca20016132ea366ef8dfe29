@@ -1,0 +1,8 @@
+package csc110.tictactoe.player.ai;
+
+public enum Gate {
+	add,
+	subtract,
+	multiply,
+	divide
+}

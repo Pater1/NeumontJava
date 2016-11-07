@@ -1,0 +1,5 @@
+package csc110.tictactoe.player.ai.neural;
+
+public interface Neuron {
+	public int GetResult(Brain fromBrain);
+}

@@ -1,0 +1,35 @@
+package csc110.tictactoe.player.ai.neural;
+
+import java.util.ArrayList;
+
+import csc110.wrappers.Vector2Int;
+
+public class ComputeNeuron implements Neuron {
+	private Vector2Int inA, inB;
+	private Gate logic;
+	
+	public void SetVectors(Vector2Int a, Vector2Int b){
+		inA = a;
+		inB = b;
+	}
+	
+	public int GetResult(Brain fromBrain){
+		int result = 0;
+		switch(logic){
+			case add:
+				result = fromBrain.GetNeuronResult(inA) + fromBrain.GetNeuronResult(inB);
+			case subtract:
+				result = fromBrain.GetNeuronResult(inA) - fromBrain.GetNeuronResult(inB);
+			case multiply:
+				result = fromBrain.GetNeuronResult(inA) * fromBrain.GetNeuronResult(inB);
+		}
+		if(result != 0){
+			result /= Math.abs(result);
+		}
+		return result;
+	}
+	
+	public ArrayList<Integer> Serialize(){
+		return new ArrayList<Integer>();
+	}
+}

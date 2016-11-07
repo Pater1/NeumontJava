@@ -11,9 +11,15 @@
 <fullyQualifiedTypeName name="java.text.DecimalFormat"/>
 <fullyQualifiedTypeName name="patpackages.gui.base.style.color.Color"/>
 <fullyQualifiedTypeName name="patpackages.gui.base.style.textures.PatPackTexture2D"/>
-<fullyQualifiedTypeName name="java.util.Random"/>
 <fullyQualifiedTypeName name="consolesocial.connections.types.data.PersonalRelation"/>
-<fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="consolesocial.connections.types.Friend"/>
 <fullyQualifiedTypeName name="consolesocial.connections.types.data.PersonalRelationHandler"/>
+<fullyQualifiedTypeName name="csc110.wrappers.Vector2"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="java.util.Random"/>
+<fullyQualifiedTypeName name="csc110.wrappers.Vector2Int"/>
+<fullyQualifiedTypeName name="csc110.tictactoe.player.ai.neural.Overmind"/>
+<fullyQualifiedTypeName name="csc110.tictactoe.player.ai.neural.Brain"/>
+<fullyQualifiedTypeName name="ttt.Board"/>
+<fullyQualifiedTypeName name="csc110.tictactoe.player.ai.neural.Overmind.Difficulty"/>
 </qualifiedTypeNameHistroy>

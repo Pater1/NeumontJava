@@ -1,0 +1,22 @@
+package csc110.tictactoe.player.ai.neural;
+
+public class Neuron {
+	private int inputA, inputB;
+	private Gate logic;
+	
+	public int GetResult(){
+		int result = 0;
+		switch(logic){
+			case add:
+				result = inputA + inputB;
+			case subtract:
+				result = inputA - inputB;
+			case multiply:
+				result = inputA * inputB;
+		}
+		if(result != 0){
+			result /= Math.abs(result);
+		}
+		return result;
+	}
+}

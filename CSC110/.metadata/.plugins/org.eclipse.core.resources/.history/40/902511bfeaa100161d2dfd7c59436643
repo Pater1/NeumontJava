@@ -1,0 +1,5 @@
+package itsaMAZEing;
+
+public enum MazeSpace {
+
+}
