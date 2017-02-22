@@ -49,3 +49,5 @@ local.properties
 
 # Code Recommenders
 .recommenders/
+/PlayingWithNetbeans/JavaApplication1/nbproject/private/
+/PlayingWithNetbeans/JavaApplication1/build/
