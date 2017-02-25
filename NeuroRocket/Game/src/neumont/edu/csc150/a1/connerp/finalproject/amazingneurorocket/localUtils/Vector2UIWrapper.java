@@ -45,9 +45,9 @@ public class Vector2UIWrapper extends JPanel{
 		add(Y);
 	}
 	
-	private int getValue(JTextField field){
+	private double getValue(JTextField field){
 		try{
-			return Integer.parseInt(field.getText());
+			return Double.parseDouble(field.getText());
 		}catch(Exception ex){
 			field.setText("");
 			throw new IllegalArgumentException("Non-Integer values not allowed on JTextField " + field.getName());

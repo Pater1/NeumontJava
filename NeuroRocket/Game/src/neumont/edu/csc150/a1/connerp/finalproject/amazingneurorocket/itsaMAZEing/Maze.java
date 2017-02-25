@@ -25,24 +25,35 @@ public class Maze extends JPanel{
 	   return mazeHeight;
 	}
  
-	private ArrayList<Sprite> sprites = new ArrayList<Sprite>();
-    public void populateSprites(Sprite reffWallSprite) {
+	private ArrayList<Sprite> wallSprites = new ArrayList<Sprite>();
+    public void populateSprites(Sprite reffWallSprite, Sprite[] start, Sprite[] end) {
         setLayout(null);
         
-        for(int i = 0; i < sprites.size(); i++){
-        	remove(sprites.get(i));
+        for(int i = 0; i < wallSprites.size(); i++){
+        	remove(wallSprites.get(i));
         }
-        sprites.clear();
+        wallSprites.clear();
         
     	Dimension wallSpriteSize = new Dimension(reffWallSprite.getSize().width, reffWallSprite.getSize().height);
 
 		for(int i = 0; i < mazeWidth; i++){
 		    for(int j = 0; j < mazeHeight; j++){
-		        if(maze[i][j] == MazeSpace.wall){
-		           Sprite wallSprite = new Sprite(reffWallSprite);
-		           wallSprite.setBounds(i * wallSpriteSize.width/2, j * wallSpriteSize.height/2, i * wallSpriteSize.width/2 + wallSprite.getSize().width, j * wallSpriteSize.height/2 + wallSprite.getSize().height);
-		           add(wallSprite);
-		           sprites.add(wallSprite);
+		    	Point corner = new Point(i * wallSpriteSize.width, j * wallSpriteSize.height);
+		    	Point center = new Point(i * wallSpriteSize.width + wallSpriteSize.width/2, j * wallSpriteSize.height + wallSpriteSize.height/2);
+		    	if(maze[i][j] == MazeSpace.wall){
+		    		Sprite wallSprite = new Sprite(reffWallSprite);
+		    		wallSprite.setLocation(corner);
+		    		int k = i * wallSpriteSize.width/2 + wallSprite.getSize().width;
+		    		add(wallSprite);
+		    		wallSprites.add(wallSprite);
+		        }else if(maze[i][j] == MazeSpace.start && start != null){
+		        	for(Sprite spr : start){
+		        		spr.setLocation(new Point(center.x - spr.getBounds().width/2, center.y - spr.getBounds().height/2));
+		        	}
+		        }else if(maze[i][j] == MazeSpace.end && end != null){
+		        	for(Sprite spr : end){
+		        		spr.setLocation(new Point(center.x - spr.getBounds().width/2, center.y - spr.getBounds().height/2));
+			        }
 		        }
 		    }
 		}
@@ -52,17 +63,26 @@ public class Maze extends JPanel{
 		repaint();
     }
 
-   public Maze(){}
-  private Maze(Vector2 size){
-     this.maze = new MazeSpace[size.y][size.x];
-     for(int i = 0; i < size.y; i++){
-         for(int j = 0; j < size.x; j++){
-             this.maze[i][j] = MazeSpace.wall;
-         }
-     }
+	public boolean checkCollisions(Sprite check) {
+		for(Sprite spr : wallSprites){
+			if(spr.collide(check)){
+				//System.out.println("Collision on: " + spr.toString());
+				return true;
+			}
+		}
+		return false;
+	}
 
-     this.mazeWidth = size.x;
-     this.mazeHeight = size.x;
+   private Maze(Vector2 size){
+	   this.maze = new MazeSpace[(int)size.y][(int)size.x];
+	   for(int i = 0; i < size.y; i++){
+		   for(int j = 0; j < size.x; j++){
+			   this.maze[i][j] = MazeSpace.wall;
+		   }
+	   }
+
+	   this.mazeWidth = (int)size.x;
+	   this.mazeHeight = (int)size.x;
   }
 	 
   public String toString(){
@@ -120,15 +140,15 @@ public class Maze extends JPanel{
   }
   private static MazeSpace[][] flipSpaceBits(MazeSpace[][] m, Vector2 placeOld, Vector2 moveDir){
      if(moveDir.x != 0){
-         for(int j = placeOld.x; j != placeOld.x + moveDir.x + ((0 > moveDir.x) ? -1 : +1); j = ((0 > moveDir.x) ? j-1 : j+1)){
-             if(j < m[placeOld.y].length && j >= 0){
-                m[placeOld.y][j] = MazeSpace.space;
+         for(int j = (int)placeOld.x; j != placeOld.x + moveDir.x + ((0 > moveDir.x) ? -1 : +1); j = ((0 > moveDir.x) ? j-1 : j+1)){
+             if(j < m[(int)placeOld.y].length && j >= 0){
+                m[(int)placeOld.y][j] = MazeSpace.space;
              }
          }
      }else{
-         for(int i = placeOld.y; i != placeOld.y + moveDir.y + ((0 > moveDir.y) ? -1 : +1); i = ((0 > moveDir.y) ? i-1 : i+1)){
+         for(int i = (int)placeOld.y; i != placeOld.y + moveDir.y + ((0 > moveDir.y) ? -1 : +1); i = ((0 > moveDir.y) ? i-1 : i+1)){
              if(i < m.length && i >= 0){
-                m[i][placeOld.x] = MazeSpace.space;
+                m[i][(int)placeOld.x] = MazeSpace.space;
              }
          }
      }
@@ -138,7 +158,7 @@ public class Maze extends JPanel{
      ArrayList<Vector2> possibleDoors = new ArrayList<Vector2>(), doorDirs = new ArrayList<Vector2>();
      for(int i = 0; i < m.length; i += m.length-1){
          for(int j = 0; j < m[i].length; j++){
-             if(m[i + ((i==0)?jump.y:-jump.y)][j] == MazeSpace.space){
+             if(m[i + ((i==0)?(int)jump.y:-(int)jump.y)][j] == MazeSpace.space){
                 possibleDoors.add(new Vector2(i, j));
                 doorDirs.add(new Vector2(((i==0)?jump.y:-jump.y),0));
              }
@@ -146,7 +166,7 @@ public class Maze extends JPanel{
      }
      for(int i = 0; i < m[0].length; i += m[0].length-1){
          for(int j = 0; j < m.length; j++){
-             if(m[j][i + ((i==0)?jump.x:-jump.x)] == MazeSpace.space){
+             if(m[j][i + ((i==0)?(int)jump.x:-(int)jump.x)] == MazeSpace.space){
                 possibleDoors.add(new Vector2(j, i));
                 doorDirs.add(new Vector2(0,((i==0)?jump.x:-jump.x)));
              }
@@ -157,12 +177,14 @@ public class Maze extends JPanel{
     
      int a = rand.nextInt(possibleDoors.size());
      m = flipSpaceBits(m,possibleDoors.get(a),doorDirs.get(a));
-
+     m[(int)possibleDoors.get(a).y][(int)possibleDoors.get(a).x] = MazeSpace.start;
+     
      possibleDoors.remove(a);
      doorDirs.remove(a);
     
      a = rand.nextInt(possibleDoors.size());
      m = flipSpaceBits(m,possibleDoors.get(a),doorDirs.get(a));
+     m[(int)possibleDoors.get(a).y][(int)possibleDoors.get(a).x] = MazeSpace.end;
     
      return m;
   }
@@ -171,23 +193,23 @@ public class Maze extends JPanel{
      ArrayList<LegalMoves> mvs = new ArrayList<LegalMoves>();
     
      //check up
-     int u = place.y + jump.y;
-     if(u < m.length && m[u][place.x] == MazeSpace.wall){
+     int u = (int)place.y + (int)jump.y;
+     if(u < m.length && m[u][(int)place.x] == MazeSpace.wall){
          mvs.add(LegalMoves.up);
      }
      //check down
-     int d = place.y - jump.y;
-     if(d >= 0 && m[d][place.x] == MazeSpace.wall){
+     int d = (int)place.y - (int)jump.y;
+     if(d >= 0 && m[d][(int)place.x] == MazeSpace.wall){
          mvs.add(LegalMoves.down);
      }
      //check left
-     int l = place.x - jump.x;
-     if(l >= 0 && m[place.y][l] == MazeSpace.wall){
+     int l = (int)place.x - (int)jump.x;
+     if(l >= 0 && m[(int)place.y][l] == MazeSpace.wall){
          mvs.add(LegalMoves.left);
      }
      //check right
-     int r = place.x + jump.x;
-     if(r < m[0].length && m[place.y][r] == MazeSpace.wall){
+     int r = (int)place.x + (int)jump.x;
+     if(r < m[0].length && m[(int)place.y][r] == MazeSpace.wall){
          mvs.add(LegalMoves.right);
      }
     

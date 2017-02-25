@@ -1,5 +1,6 @@
 package neumont.edu.csc150.a1.connerp.finalproject.amazingneurorocket.GUI.gamedisplay.engine.runtime;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -36,7 +37,7 @@ public class Sprite extends JComponent{
 		try{
 			mainSpriteImage = new ImageIcon(this.getClass().getResource(filePath)).getImage();
 			setSize((int)(mainSpriteImage.getWidth(null) * scale), (int)(mainSpriteImage.getHeight(null) * scale));
-			setLocation(0, 0);
+			//setLocation(0, 0);
 			//System.out.println("New Sprite Size:	" + getSize().toString());
 			this.filePath = filePath;
 		}catch(Exception ex){
@@ -45,9 +46,25 @@ public class Sprite extends JComponent{
 	}
 
 	@Override
+	public String toString(){
+		return "Sprite @\n	Bounds: " + getBounds().toString() + "\n	Path: " + filePath;
+	}
+	
+	@Override
 	public void paint(Graphics g) {
-		//System.out.println("Printing Sprite- \n	Location: " + getLocation().toString() + ",\n	Size: " + getSize().toString());
-		//g.drawImage(mainSpriteImage, this.getLocation().x, this.getLocation().y, this.getSize().width, this.getSize().height, null);
-		g.drawImage(mainSpriteImage, this.getLocation().x, this.getLocation().y, null);
+	g.drawImage(mainSpriteImage, 
+			0, 0, 
+			(int)getBounds().width, (int)getBounds().height, 
+			0, 0, 
+			mainSpriteImage.getWidth(null), mainSpriteImage.getHeight(null), 
+		null);
+	}
+	public boolean collide(Sprite check) {
+		return getBounds().intersects(check.getBounds());
+	}
+	public boolean inBounds(Vector2 vec) {
+		boolean ret = vec.x > getBounds().getMinX() && vec.x < getBounds().getMaxX() && vec.y > getBounds().getMinY() && vec.y < getBounds().getMaxY();
+		
+		return ret;
 	}
 }
