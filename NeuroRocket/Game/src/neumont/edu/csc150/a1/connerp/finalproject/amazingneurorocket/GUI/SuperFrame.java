@@ -7,10 +7,11 @@ import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import neumont.edu.csc150.a1.connerp.finalproject.amazingneurorocket.ITypeGrab;
 import neumont.edu.csc150.a1.connerp.finalproject.amazingneurorocket.GUI.gamedisplay.GameDisplay;
 import neumont.edu.csc150.a1.connerp.finalproject.amazingneurorocket.GUI.gamedisplay.mazerocketgame.MazeRocket;
 
-public class SuperFrame extends JFrame{
+public class SuperFrame extends JFrame implements ITypeGrab<SuperFrame>{
 	private static final long serialVersionUID = 7327809067630674611L;
 	
 	private GameDisplay gameDisplay;
@@ -35,6 +36,7 @@ public class SuperFrame extends JFrame{
 		add(header, BorderLayout.NORTH);
 	//	add(neuronDisplay, BorderLayout.SOUTH);
 
+		this.setVisible(true);
 		
 		gameDisplay.setLocation(0, 0);
 		
@@ -47,5 +49,14 @@ public class SuperFrame extends JFrame{
 		setBackground(Color.red);
 		
 		repaint();
+	}
+
+	@Override
+	public Object findType(Class typeWanted) {
+		if(typeWanted == this.getClass()){
+			return this;
+		}else{
+			return gameDisplay.findType(typeWanted);
+		}
 	}
 }

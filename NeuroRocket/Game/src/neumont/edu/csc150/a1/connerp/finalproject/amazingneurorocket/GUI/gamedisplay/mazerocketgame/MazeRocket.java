@@ -1,7 +1,5 @@
 package neumont.edu.csc150.a1.connerp.finalproject.amazingneurorocket.GUI.gamedisplay.mazerocketgame;
  
-import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
@@ -44,7 +42,12 @@ public class MazeRocket extends GameDisplay{
        spriteSettings.addSpriteBuilder("Goal", "/resources/sprites/Goal.png");
        settings.add(spriteSettings);
 
-       header.add(new JButton("Refresh"){{
+       header.add(new JButton("Refresh"){/**
+		 * 
+		 */
+		private static final long serialVersionUID = -3953300504774356471L;
+
+	{
     	   addActionListener(new ActionListener(){
 				@Override
 				public void actionPerformed(ActionEvent e) {
@@ -52,41 +55,6 @@ public class MazeRocket extends GameDisplay{
 				}
     	   });
        }});
-
-       /*Debug only
-       header.add(new JButton("Up"){{
-    	   addActionListener(new ActionListener(){
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					rocketDir = new Vector2(0,-1);
-				}
-    	   });
-       }});
-       header.add(new JButton("Down"){{
-    	   addActionListener(new ActionListener(){
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					rocketDir = new Vector2(0,1);
-				}
-    	   });
-       }});
-       header.add(new JButton("Left"){{
-    	   addActionListener(new ActionListener(){
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					rocketDir = new Vector2(-1,0);
-				}
-    	   });
-       }});
-       header.add(new JButton("Right"){{
-    	   addActionListener(new ActionListener(){
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					rocketDir = new Vector2(1,0);
-				}
-    	   });
-       }});
-       */
        
        player = new Sprite(spriteSettings.getSprite("Rocket"));
        player.setSize(player.getPreferredSize());
@@ -142,4 +110,13 @@ public class MazeRocket extends GameDisplay{
         this.add(maze);
         repaint();
     }
+
+	@Override
+	public Object findType(Class typeWanted) {
+		if(typeWanted == this.getClass()){
+			return this;
+		}else{
+			return null;
+		}
+	}
 }

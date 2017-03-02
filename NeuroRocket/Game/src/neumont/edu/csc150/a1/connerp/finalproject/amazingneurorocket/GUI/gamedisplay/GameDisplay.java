@@ -6,9 +6,11 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
 
+import neumont.edu.csc150.a1.connerp.finalproject.amazingneurorocket.ITypeGrab;
+import neumont.edu.csc150.a1.connerp.finalproject.amazingneurorocket.GUI.SuperFrame;
 import neumont.edu.csc150.a1.connerp.finalproject.amazingneurorocket.GUI.gamedisplay.engine.runtime.Sprite;
 
-public abstract class GameDisplay extends JPanel{
+public abstract class GameDisplay extends JPanel implements ITypeGrab<GameDisplay>{
 	private JPanel settingsPanel, header;
 	
 	public GameDisplay(JPanel settings, JPanel header) {
