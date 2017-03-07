@@ -2,18 +2,36 @@ package neumont.edu.csc150.a1.connerp.finalproject.amazingneurorocket.GUI.gamedi
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
+import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import neumont.edu.csc150.a1.connerp.finalproject.amazingneurorocket.ITypeGrab;
 import neumont.edu.csc150.a1.connerp.finalproject.amazingneurorocket.GUI.SuperFrame;
 import neumont.edu.csc150.a1.connerp.finalproject.amazingneurorocket.GUI.gamedisplay.engine.runtime.Sprite;
+import neumont.edu.csc150.a1.connerp.finalproject.amazingneurorocket.ai.IAI;
+import neumont.edu.csc150.a1.connerp.finalproject.amazingneurorocket.ai.ITrainer;
 
-public abstract class GameDisplay extends JPanel implements ITypeGrab<GameDisplay>{
-	private JPanel settingsPanel, header;
+public abstract class GameDisplay<AITrainer extends ITrainer, AI extends IAI> extends JPanel implements ITypeGrab<GameDisplay>{
+    private JPanel settingsPanel, header;
+
+    protected AITrainer aiTrainer;
+    protected AI currentAI;
+
+    public void setAITrainer(AITrainer trainer){
+    	aiTrainer = trainer;
+    	try{
+    		currentAI = (AI)aiTrainer.getNextLearner();
+    	}catch(Exception ex){
+    		System.err.println("GameDisplay's AI type must match it's trainer's type");
+    	}
+    }
 	
-	public GameDisplay(JPanel settings, JPanel header) {
+	public GameDisplay(boolean populate, JPanel settings, JPanel header) {
 		settingsPanel = settings;
 		this.header = header;
 		setLayout(null);
@@ -25,7 +43,6 @@ public abstract class GameDisplay extends JPanel implements ITypeGrab<GameDispla
 		BufferedImage myImage = new BufferedImage(getSize().width, getSize().height, BufferedImage.TYPE_INT_RGB);
 	    Graphics2D g2 = myImage.createGraphics();
 	    super.paint(g2);
-	    System.out.println(myImage.getRGB(0,0));
 	}
 	
 	
@@ -36,5 +53,9 @@ public abstract class GameDisplay extends JPanel implements ITypeGrab<GameDispla
 				check.getBounds().getMaxX() > getBounds().width || 	//right
 				check.getBounds().getMaxY() > getBounds().height;	//bottom
 	}
+
+	public abstract void startGame();
+	public abstract void pauseGame();
+	public abstract void resetGame();
 
 }

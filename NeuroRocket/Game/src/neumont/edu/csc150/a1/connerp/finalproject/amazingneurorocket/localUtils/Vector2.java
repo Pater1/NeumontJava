@@ -37,4 +37,8 @@ public class Vector2{
 		x = x * scalar;
 		return this;
 	}
+
+	public static Vector2 resolveFromAngle(double angle) {
+		return new Vector2(Math.cos(angle), Math.sin(angle));
+	}
 }

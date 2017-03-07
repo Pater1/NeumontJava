@@ -24,6 +24,9 @@ public class Maze extends JPanel{
 	public int getMazeHeight(){
 	   return mazeHeight;
 	}
+	public MazeSpace getSpace(int x, int y){
+		return maze[x][y];
+	}
  
 	private ArrayList<Sprite> wallSprites = new ArrayList<Sprite>();
     public void populateSprites(Sprite reffWallSprite, Sprite[] start, Sprite[] end) {

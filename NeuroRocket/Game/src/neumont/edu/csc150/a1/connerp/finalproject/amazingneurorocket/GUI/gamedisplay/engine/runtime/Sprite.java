@@ -29,16 +29,15 @@ public class Sprite extends JComponent{
 	}
 	
 	public Sprite(Sprite renderSprite) {
-		setSprite(renderSprite.filePath);
 		this.scale = renderSprite.scale;
+		setSprite(renderSprite.filePath);
 		setOpaque(true);
 	}
 	public void setSprite(String filePath){
 		try{
 			mainSpriteImage = new ImageIcon(this.getClass().getResource(filePath)).getImage();
 			setSize((int)(mainSpriteImage.getWidth(null) * scale), (int)(mainSpriteImage.getHeight(null) * scale));
-			//setLocation(0, 0);
-			//System.out.println("New Sprite Size:	" + getSize().toString());
+
 			this.filePath = filePath;
 		}catch(Exception ex){
 			throw ex;
@@ -66,5 +65,9 @@ public class Sprite extends JComponent{
 		boolean ret = vec.x > getBounds().getMinX() && vec.x < getBounds().getMaxX() && vec.y > getBounds().getMinY() && vec.y < getBounds().getMaxY();
 		
 		return ret;
+	}
+	public void setScale(double d) {
+		scale = d;
+		setSize((int)(mainSpriteImage.getWidth(null) * scale), (int)(mainSpriteImage.getHeight(null) * scale));
 	}
 }
