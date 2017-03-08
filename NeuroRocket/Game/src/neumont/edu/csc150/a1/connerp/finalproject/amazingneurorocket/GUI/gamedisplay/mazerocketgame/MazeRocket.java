@@ -20,7 +20,7 @@ import neumont.edu.csc150.a1.connerp.finalproject.amazingneurorocket.itsaMAZEing
 import neumont.edu.csc150.a1.connerp.finalproject.amazingneurorocket.itsaMAZEing.MazeSpace;
 import neumont.edu.csc150.a1.connerp.finalproject.amazingneurorocket.localUtils.Vector2;
  
-public class MazeRocket<AITrainer extends ITrainer, AI extends IAI<Double, double[][]>> extends GameDisplay{
+public class MazeRocket<AITrainer extends ITrainer, AI extends IAI<Double, int[][]>> extends GameDisplay{
     private static final long serialVersionUID = -2663350514988260196L;
     private final int milliDelay = 40;
    
@@ -31,7 +31,7 @@ public class MazeRocket<AITrainer extends ITrainer, AI extends IAI<Double, doubl
     private Sprite player, goal, start, wall;
     private Timer localTimer;
     
-    private Vector2 rocketDir = new Vector2(1,0);
+    private Vector2 rocketDir = new Vector2(0,0);
     private double rocketSpeed = 5;
    
     public MazeRocket(double scale, boolean populate, JPanel settings, JPanel header){
@@ -77,10 +77,25 @@ public class MazeRocket<AITrainer extends ITrainer, AI extends IAI<Double, doubl
 	@SuppressWarnings("unchecked")
 	private void Tick(){
     	//not try-catching this risky cast on purpose
-    	rocketDir = Vector2.resolveFromAngle((Math.PI/2) * Math.floor(((double)currentAI.calcualateInputs(centerMaze(player))*4)));
-    	//System.out.println(rocketDir);
+    	/*rocketDir = Vector2.resolveFromAngle( 		
+    											(	
+    												Math.floor(
+	    												(
+	    													(
+	    														(double)currentAI.calcualateInputs(centerMaze(player))
+	    													) 
+	    													/(Math.PI/2)
+	    												) 
+	    												/4
+    												)
+    											) 
+    											*(Math.PI/2) 
+    										);*/
+		double gotAngle = (double)currentAI.calcualateInputs(centerMaze(player));
+		rocketDir = Vector2.resolveFromAngle(gotAngle);
+    //	System.out.println(rocketDir);
     	
-    	rocketDir.normalize().multiply(rocketSpeed);
+    	rocketDir = rocketDir.normalize().multiply(rocketSpeed);
     	player.setLocation(new Point((int)(player.getLocation().x + rocketDir.x), (int)(player.getLocation().y + rocketDir.y)));
  
     	framesSurvived++;
@@ -130,9 +145,9 @@ public class MazeRocket<AITrainer extends ITrainer, AI extends IAI<Double, doubl
 		return (in/(1+Math.abs(in)));
 	}
 
-	private double[][] centerMaze(Sprite player2) {
+	private int[][] centerMaze(Sprite player2) {
 		int width = (int)currentAI.getInputSize().x, height = (int)currentAI.getInputSize().y;
-		double[][] ret = new double[width][height];
+		int[][] ret = new int[width][height];
 		
 		Dimension mazeSizePixels = maze.getSize();
 //		System.out.println(mazeSizePixels);
@@ -155,7 +170,7 @@ public class MazeRocket<AITrainer extends ITrainer, AI extends IAI<Double, doubl
 					MazeSpace spce = maze.getSpace((int)loc.x, (int)loc.y);
 					switch(spce){
 						case wall:
-							ret[i][j] = -1;
+							ret[i][j] = 2;
 							break;
 						case end:
 							ret[i][j] = 1;
@@ -179,7 +194,7 @@ public class MazeRocket<AITrainer extends ITrainer, AI extends IAI<Double, doubl
 							break;
 					}
 				}catch(ArrayIndexOutOfBoundsException aoobe){
-					ret[i][j] = -1.1;
+					ret[i][j] = -2;
 				}
 			}
 		}

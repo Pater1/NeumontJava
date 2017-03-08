@@ -6,7 +6,7 @@ import neumont.edu.csc150.a1.connerp.finalproject.amazingneurorocket.ai.GeneticM
 
 public class POE {
 	public static void main(String[] args) {
-		GeneticMaskAIBreeder aiTrainer = new GeneticMaskAIBreeder(10, 2, 2, 5, 0.3);
+		GeneticMaskAIBreeder aiTrainer = new GeneticMaskAIBreeder(10, 8, 8, 5, 0.3, 0.1);
 		SuperFrame main = new SuperFrame(1,1,true,aiTrainer);
 		SuperFrame backGround = new SuperFrame((22*11),0.1,false,aiTrainer);
 

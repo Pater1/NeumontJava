@@ -10,21 +10,22 @@ public class GeneticMaskAIBreeder implements ITrainer<GeneticMaskAILayerStack>{
 
 	private ArrayList<GeneticMaskAILayerStack> genePool = new ArrayList<GeneticMaskAILayerStack>();
 	private int genePoolSize, maskWidth, maskHeight, layerDepth;
-	private double mutationRate, generationCount;
+	private double mutationRate, randomReturnRate, generationCount;
 	private JTextArea generations = new JTextArea("0"), maxFit = new JTextArea("0");
 	
-	public GeneticMaskAIBreeder(int genePoolSize, int maskWidth, int maskHeight, int depth, double mutationRate){
+	public GeneticMaskAIBreeder(int genePoolSize, int maskWidth, int maskHeight, int depth, double mutationRate, double randomReturnRate){
 		this.genePoolSize = genePoolSize;
 		this.maskWidth = maskWidth;
 		this.maskHeight = maskHeight;
 		this.mutationRate = mutationRate;
 		this.layerDepth = depth;
+		this.randomReturnRate = randomReturnRate;
 	}
 
 	@Override
 	public GeneticMaskAILayerStack getNextLearner() {
 		GeneticMaskAILayerStack nextAI = null;
-		if(genePool.size() < genePoolSize){
+		if(genePool.size() < genePoolSize || Math.random() < randomReturnRate){
 			nextAI = new GeneticMaskAILayerStack(maskWidth, maskHeight, layerDepth);
 		}else{
 			nextAI = breedFromPool();

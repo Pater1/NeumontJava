@@ -75,7 +75,7 @@ public class SuperFrame extends JFrame implements ITypeGrab<SuperFrame>{
 	       }});
 		
 		if(aiTrainer == null)
-			aiTrainer = new GeneticMaskAIBreeder(10, 10, 10, 5, 0.3);
+			aiTrainer = new GeneticMaskAIBreeder(10, 10, 10, 5, 0.3, 0.1);
 		
 		JPanel center = new JPanel();
 		center.setLayout(new FlowLayout());

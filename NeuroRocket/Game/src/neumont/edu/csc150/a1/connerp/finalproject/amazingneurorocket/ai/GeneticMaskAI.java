@@ -2,9 +2,9 @@ package neumont.edu.csc150.a1.connerp.finalproject.amazingneurorocket.ai;
 
 import neumont.edu.csc150.a1.connerp.finalproject.amazingneurorocket.localUtils.Vector2;
 
-public class GeneticMaskAI implements IAI<Double, double[][]>, IGeneticLearner<GeneticMaskAI>, Comparable<GeneticMaskAI>{
+public class GeneticMaskAI implements IAI<Double, int[][]>, IGeneticLearner<GeneticMaskAI>, Comparable<GeneticMaskAI>{
 	private int maskWidth, maskHeight;
-	private double[][] mask;
+	private Vector2[][][] mask;
 	private double fitness;
 
 	public int getMaskWidth(){return maskWidth;}
@@ -15,34 +15,40 @@ public class GeneticMaskAI implements IAI<Double, double[][]>, IGeneticLearner<G
 	public GeneticMaskAI(int x, int y){
 		maskWidth = (x/2)*2+1;
 		maskHeight = (y/2)*2+1;
-		mask = new double[maskWidth][maskHeight];
+		mask = new Vector2[maskWidth][maskHeight][3];
 		for(int i = 0; i < maskHeight; i++){
 			for(int j = 0; j < maskWidth; j++){
-				mask[j][i] = Math.random() *2 -1;
+				for(int k = 0; k < 3; k++){
+					mask[j][i][k] = randVec();
+				}
 			}
 		}
 	}
 	
+	private Vector2 randVec(){
+		return Vector2.resolveFromAngle(Math.random() *2 *Math.PI).multiply(Math.random());
+	}
+	
 	@Override
-	public Double calcualateInputs(double[][] input) {
+	public Double calcualateInputs(int[][] input) {
 		if(input.length != mask.length){
 			throw new IllegalArgumentException("input length must match length of mask (" + maskWidth + ", " + maskHeight + ")");
 		}
 		
-		Double ret = 0.0;
-		double[][] inputCopy = input.clone();
+		Vector2 ret = new Vector2(0,0);
+		int[][] inputCopy = input.clone();
 		for(int x = 0; x < maskWidth; x++){
 			if(inputCopy[x].length != mask[x].length){
 				throw new IllegalArgumentException("input length must match length of mask (" + maskWidth + ", " + maskHeight + ")");
 			}
 			
 			for(int y = 0; y < maskHeight; y++){
-				inputCopy[x][y] *= mask[x][y]; 
-				ret += inputCopy[x][y];
+				Vector2 v = mask[x][y][Math.abs(inputCopy[x][y]%3)]; 
+				ret = ret.add(v);
 			}
 		}
 		
-		return sigmoid(ret);
+		return ret.getAngle();
 	}
 
 	@Override
@@ -65,14 +71,16 @@ public class GeneticMaskAI implements IAI<Double, double[][]>, IGeneticLearner<G
 		GeneticMaskAI child = new GeneticMaskAI(this.getMaskWidth(), this.getMaskHeight());
 		for(int i = 0; i < maskHeight; i++){
 			for(int j = 0; j < maskWidth; j++){
-				if(Math.random() <= mutationRate){
-					child.mask[j][i] = Math.random() *2 -1;
-				}else{
-					double genomeSelectorRange = this.getFitness() + mate.getFitness();
-					if((Math.random() * genomeSelectorRange) <= this.getFitness()){
-						child.mask[j][i] = this.mask[j][i];
+				for(int k = 0; k < 3; k++){
+					if(Math.random() <= mutationRate){
+						child.mask[j][i][k] = randVec();
 					}else{
-						child.mask[j][i] = mate.mask[j][i];
+						double genomeSelectorRange = this.getFitness() + mate.getFitness();
+						if((Math.random() * genomeSelectorRange) <= this.getFitness()){
+							child.mask[j][i][k] = this.mask[j][i][k];
+						}else{
+							child.mask[j][i][k] = mate.mask[j][i][k];
+						}
 					}
 				}
 			}

@@ -17,6 +17,11 @@ public class Vector2{
 		this.y = yValue;
 	}
 
+	public Vector2(Vector2 vector2) {
+		this.x = vector2.x;
+		this.y = vector2.y;
+	}
+
 	public Vector2 normalize() {
 		if(x == 0 && y == 0){
 			//do nothing
@@ -33,12 +38,22 @@ public class Vector2{
 	}
 
 	public Vector2 multiply(double scalar) {
-		y = y * scalar;
-		x = x * scalar;
-		return this;
+		return new Vector2(scalar * x, scalar * y);
+	}
+	public Vector2 add(Vector2 vec){
+		return new Vector2(vec.x + this.x, vec.y + this.y);
 	}
 
 	public static Vector2 resolveFromAngle(double angle) {
 		return new Vector2(Math.cos(angle), Math.sin(angle));
+	}
+	
+	public double magnitude(){
+		double locX = Math.abs(x), locY = Math.abs(y);
+		return Math.pow(locX * locX + locY * locY, 1.0/2.0);
+	}
+
+	public double getAngle() {
+		return Math.atan2(y, x);
 	}
 }

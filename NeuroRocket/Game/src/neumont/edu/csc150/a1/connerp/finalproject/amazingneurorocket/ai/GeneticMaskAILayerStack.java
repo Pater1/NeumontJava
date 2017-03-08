@@ -2,7 +2,7 @@ package neumont.edu.csc150.a1.connerp.finalproject.amazingneurorocket.ai;
 
 import neumont.edu.csc150.a1.connerp.finalproject.amazingneurorocket.localUtils.Vector2;
 
-public class GeneticMaskAILayerStack  implements IAI<Double, double[][]>, IGeneticLearner<GeneticMaskAILayerStack>, Comparable<GeneticMaskAILayerStack>{
+public class GeneticMaskAILayerStack  implements IAI<Double, int[][]>, IGeneticLearner<GeneticMaskAILayerStack>, Comparable<GeneticMaskAILayerStack>{
 
 	private int maskWidth, maskHeight, layerDepth;
 	private GeneticMaskAI[][][] maskLayers;
@@ -33,14 +33,14 @@ public class GeneticMaskAILayerStack  implements IAI<Double, double[][]>, IGenet
 	}
 
 	@Override
-	public Double calcualateInputs(double[][] input) {
-		double[][] clone = input.clone();
+	public Double calcualateInputs(int[][] input) {
+		int[][] clone = input.clone();
 		
 		for(int k = 0; k < layerDepth; k++){
-			double[][] workingCopy = clone.clone();
+			int[][] workingCopy = clone.clone();
 			for(int i = 0; i < maskWidth; i++){
 				for(int j = 0; j < maskHeight; j++){
-					workingCopy[i][j] = maskLayers[i][j][k].calcualateInputs(clone);
+					workingCopy[i][j] = (int)Math.round(maskLayers[i][j][k].calcualateInputs(clone));
 				}
 			}
 			clone = workingCopy;
